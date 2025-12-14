@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Parking Alert v 1.1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <!-- Site icon -->
+
+    <link
+      rel="icon"
+      href="/front-end/assets/img/parking-alert-logo.png"
+      type="image/png"
+    />
+
+    <!-- Styles -->
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/profil.css" />
+    <link rel="stylesheet" href="assets/css/loader-style.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.css" />
+
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Toast -->
+    <link rel="stylesheet" href="/front-end//assets/css/toast.css" />
+    <script src="/front-end/assets/js/toast/toast.js"></script>
+
+    <!-- Preusmeri na prijava če ni logiran -->
+    <script>
+      const user = JSON.parse(localStorage.getItem("loggedInUser"));
+      if (!user) {
+        window.location.replace("/front-end/prijava.html");
+      }
+    </script>
+
+    <!-- Glavne razrede in funkcije -->
+    <script src="/main-scripts/studenti.js"></script>
+    <!-- Skripta Funkcij-->
+    <script src="/front-end/assets/js/funtionsScript.js"></script>
+  </head>
+
+  <body>
+    <!-- Preloader -->
+    <div id="preloader">
+      <div id="status">&nbsp;</div>
+    </div>
+    <!-- TOP NAVBAR -->
+    <nav role="navigation" class="navbar navbar-static-top">
+      <div class="container-fluid">
+        <!-- Znamka in preklopnik sta združena za boljši prikaz na mobilnih napravah -->
+        <div class="navbar-header">
+          <button
+            data-target="#bs-example-navbar-collapse-1"
+            data-toggle="collapse"
+            class="navbar-toggle"
+            type="button"
+          >
+            <span class="entypo-menu"></span>
+          </button>
+
+          <div id="logo-mobile" class="visible-xs">
+            <h1>
+              Parking Alert
+              <span>v1.1</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- zbiranje navigacijskih povezav, obrazcev in druge vsebine za preklapljanje -->
+        <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse"
+        position: relative; z-index: 9999999; style="margin-left: 250px;">
+        <ul class="nav navbar-nav" style="z-index: 9999999">
+          <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#"
+              ><i style="font-size: 20px" class="icon-conversation"></i>
+              <div class="noft-red">5</div></a
+            >
+
+            <ul
+              id="messageDropdown"
+              style="margin: 10px 0 0 -10px; z-index: 999999"
+              role="menu"
+              class="dropdown-menu dropdown-wrap"
+            >
+              <!-- JavaScript bo vnesla zadnjih 5 sporočil tukaj -->
+            </ul>
+          </li>
+          <li>
+            <a href="#"
+              ><i
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Help"
+                style="font-size: 20px"
+                class="icon-help tooltitle"
+              ></i
+            ></a>
+          </li>
+        </ul>
+        <div
+          id="nt-title-container"
+          class="navbar-left running-text visible-lg"
+          style="width: 780px"
+        >
+          <ul class="date-top">
+            <li class="entypo-calendar" style="margin-right: 5px"></li>
+            <li id="Date"></li>
+          </ul>
+
+          <ul id="digital-clock" class="digital">
+            <li class="entypo-clock" style="margin-right: 5px"></li>
+            <li class="hour"></li>
+            <li>:</li>
+            <li class="min"></li>
+            <li>:</li>
+            <li class="sec"></li>
+            <li class="meridiem"></li>
+          </ul>
+          <ul id="nt-title">
+            <!-- Redarjevi opisi bodo tu vneseni dinamično -->
+          </ul>
+        </div>
+
+        <ul style="margin-right: 0" class="nav navbar-nav navbar-right">
+          <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+              <img
+                id="user-image-two"
+                alt=""
+                class="admin-pic img-circle"
+              />Živjo!
+              <span id="user-name-two">Uporabnik</span>
+              <b class="caret"></b>
+            </a>
+            <ul
+              style="margin-top: 14px"
+              role="menu"
+              class="dropdown-setting dropdown-menu"
+            >
+              <li>
+                <a href="/front-end/profil.html">
+                  <span class="entypo-user"></span>&#160;&#160;Moj Profil</a
+                >
+              </li>
+              <li>
+                <a href="#">
+                  <span class="entypo-vcard"></span>&#160;&#160;Nastavitve
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span class="entypo-lifebuoy"></span>&#160;&#160;Pomoč</a
+                >
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a href="#" onclick="logout()">
+                  <span class="entypo-logout"></span>&#160;&#160;Odjava</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- /KONEC ZGORNJE NAVIGACIJSKE VRSTICE -->
+
+    <!-- STRANSKI MENI -->
+    <div id="skin-select">
+      <div
+        id="logo"
+        style="
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          gap: 20px;
+          margin-top: 17px;
+        "
+      >
+        <h1
+          style="
+            font-size: x-large;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+          "
+        >
+          Parking Alert
+          <span>v1.1</span>
+        </h1>
+      </div>
+
+      <div class="dark" style="margin-bottom: 15px">
+        <form action="#">
+          <span>
+            <input
+              type="text"
+              name="search"
+              value=""
+              class="search rounded id_search"
+              placeholder="Iskanje ..."
+              autofocus
+            />
+          </span>
+        </form>
+      </div>
+
+      <div class="skin-part">
+        <div id="tree-wrap">
+          <div class="side-bar">
+            <ul class="topnav menu-left-nest">
+              <li>
+                <a
+                  href="#"
+                  style="border-left: 0px solid !important"
+                  class="title-menu-left"
+                >
+                  <span class="">Kratice</span>
+                  <i
+                    data-toggle="tooltip"
+                    class="entypo-cog pull-right config-wrap"
+                  ></i>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  class="tooltip-tip ajax-load"
+                  href="/front-end/index.html"
+                  title="Dashboard"
+                >
+                  <i class="icon-window"></i>
+                  <span>Nadzorna plošča</span>
+                </a>
+              </li>
+            </ul>
+            <ul class="topnav menu-left-nest" id="citySidebar">
+              <li>
+                <a href="#" class="title-menu-left">
+                  <span>Mesta</span>
+                  <i class="entypo-cog pull-right config-wrap"></i>
+                </a>
+              </li>
+              <!-- Vsa dinamična mesta bodo vstavljena pod to vrstico -->
+            </ul>
+
+            <ul class="topnav menu-left-nest">
+              <li>
+                <a
+                  href="#"
+                  style="border-left: 0px solid !important"
+                  class="title-menu-left"
+                >
+                  <span class="">Zadnja Parkirišča</span>
+                  <i
+                    data-toggle="tooltip"
+                    class="entypo-cog pull-right config-wrap"
+                  ></i>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  class="tooltip-tip ajax-load"
+                  href="social.html"
+                  title="Social"
+                >
+                  <span>Parkirišče FRI</span>
+                </a>
+              </li>
+
+              <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Blog App">
+                  <span>Parkirišče Bežigrad</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="tooltip-tip ajax-load"
+                  href="social.html"
+                  title="Social"
+                >
+                  <span>Parkirišče Dolenjska cesta</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="tooltip-tip ajax-load"
+                  href="media.html"
+                  title="Media"
+                >
+                  <span>Parkirišče Tivoli</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- KONEC STRANSKEGA MENIJA -->
+
+    <!--  OVITEK IZ PAPIRJA -->
+    <div class="wrap-fluid" style="margin-left: 250px">
+      <div class="container-fluid paper-wrap bevel tlbr">
+        <!-- VSEBINA -->
+        <!--NASLOV -->
+        <div class="row">
+          <div id="paper-top">
+            <div class="col-sm-3">
+              <h2 class="tittle-content-header">
+                <i class="icon-window"></i>
+                <span>Nadzorna plošča </span>
+              </h2>
+            </div>
+
+            <div class="col-sm-7">
+              <div class="devider-vertical visible-lg"></div>
+              <div class="tittle-middle-header">
+                <div class="alert">
+                  <button type="button" class="close" data-dismiss="alert">
+                    ×
+                  </button>
+                  <span class="tittle-alert entypo-info-circled"></span>
+                  Dobrodošli nazaj,&nbsp;
+                  <strong id="user-name-strong">Uporabnik!</strong
+                  >&nbsp;&nbsp;<span id="last-login-time"
+                    >Vaša zadnja prijava je bila včeraj, 16:54 PM</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="devider-vertical visible-lg"></div>
+              <div class="btn-group btn-wigdet pull-right visible-lg">
+                <div class="btn">Pripomoček</div>
+                <button
+                  data-toggle="dropdown"
+                  class="btn dropdown-toggle"
+                  type="button"
+                >
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul role="menu" class="dropdown-menu">
+                  <li>
+                    <a href="#">
+                      <span class="entypo-plus-circled margin-iconic"></span
+                      >Dodaj</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span class="entypo-heart margin-iconic"></span
+                      >Priljubljeno</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span class="entypo-cog margin-iconic"></span
+                      >Nastavitve</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/ NASLOV -->
+
+        <!-- BREADCRUMB -->
+        <ul id="breadcrumb">
+          <li>
+            <span class="entypo-home"></span>
+          </li>
+          <li><i class="fa fa-lg fa-angle-right"></i></li>
+          <li>
+            <a href="/front-end/index.html" title="Nadzorna plošča">Domov</a>
+          </li>
+          <li><i class="fa fa-lg fa-angle-right"></i></li>
+          <li>
+            <a
+              href="/front-end/index.html"
+              style="font-weight: bold"
+              title="Nadzorna plošča"
+              >Nadzorna plošča</a
+            >
+          </li>
+          <li class="pull-right">
+            <div class="input-group input-widget">
+              <input
+                style="border-radius: 15px"
+                type="text"
+                placeholder="Iskanje..."
+                class="form-control"
+              />
+            </div>
+          </li>
+        </ul>
+
+        <!-- KONEC BREADCRUMBA -->
+        <div class="profileHeadingContainer">
+          <div class="button-group-div">
+            <button
+              class="btn btn-success danger-profile"
+              onclick="openToggleGPS()"
+            >
+              GPS
+            </button>
+            <button
+              class="btn btn-success danger-profile"
+              onclick="izberiLokacijoModal()"
+            >
+              Izberi lokacijo
+            </button>
+            <button
+              id="prijaviRedarButton"
+              class="btn btn-primary danger-profile"
+              onclick="openPrijaviRedarModal()"
+            >
+              Prijavi redarja
+            </button>
+          </div>
+        </div>
+
+        <div id="paper-middle">
+          <div
+            style="
+              max-width: 100%;
+              list-style: none;
+              transition: none;
+              overflow: hidden;
+              width: 100%;
+              height: 530px;
+            "
+          >
+            <div
+              id="embed-ded-map-canvas"
+              style="height: 100%; width: 100%; max-width: 100%"
+            >
+              <div id="leafletMap" style="height: 100%; width: 100%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!--  / UPRAVITELJ NAPRAV -->
+
+        <div class="content-wrap" style="margin-top: 120px">
+          <div class="row rowTable">
+            <div class="col-sm-12" style="margin-top: 20px">
+              <div id="siteClose" class="nest">
+                <div class="title-alt">
+                  <h6>
+                    <span class="fontawesome-globe"></span>&nbsp;Zadnja
+                    obvestila
+                  </h6>
+                </div>
+                <div id="site" class="body-nest" style="min-height: 296px">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Tukaj se izpolnijo dinamične vrstice. -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="toast-container"></div>
+        <!-- Div za prijavi redar modal -->
+        <div id="prijaviRedarModalContainer"></div>
+        <!-- Div za GPS -->
+        <div id="gpsModal"></div>
+        <!-- Div za Izberi lokacijo -->
+        <div id="izberiParkirisceModal"></div>
+      </div>
+      <!-- Footer -->
+      <footer>
+        <div class="footer-content">
+          <p>2025 RIS projekt.</p>
+        </div>
+      </footer>
+    </div>
+    <!--  KONEC ZAVIJANJA PAPIRJA -->
+
+    <!--  Posodobi datum -->
+    <script src="/front-end/assets/js/countdown/updateDate.js"></script>
+
+    <!--  Dummy podatki o parkirišč -->
+    <script type="module" src="assets/js/dummyData/parkingdata.js"></script>
+
+    <!-- GLAVNI EFFECT -->
+    <script type="text/javascript" src="assets/js/preloader.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/js/load.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
+
+    <!-- Odštevanje -->
+    <script
+      type="text/javascript"
+      src="assets/js/countdown/jquery.countdown.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="/front-end/assets/js/countdown/countdown.js"
+    ></script>
+
+    <!-- LEAFLET MAP -->
+    <script
+      type="module"
+      src="/front-end/assets/js/leafletMap/leafletMap.js"
+    ></script>
+
+    <!-- Uporabniki -->
+    <script src="/front-end/assets/js/dummyData/usersData.js"></script>
+    <script src="/front-end/assets/js/dummyData/cities.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+        if (loggedInUser) {
+          // Posodobi uporabniško ime
+          const nameElement = document.getElementById("user-name-two");
+          nameElement.textContent = `${loggedInUser.ime} ${loggedInUser.priimek}`;
+
+          // Posodobi sliko uporabnika
+          const imageElement = document.getElementById("user-image-two");
+          imageElement.src = loggedInUser.image || "/default-image.jpg";
+        }
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+        if (loggedInUser) {
+          // Posodobi uporabniško ime
+          const nameElement = document.getElementById("user-name-strong");
+          nameElement.textContent = `${loggedInUser.ime}!`;
+
+          // Posodobi zadnji čas prijave
+          const lastLoginElement = document.getElementById("last-login-time");
+
+          // Preveri, ali je lastLogin definiran
+          const lastLogin =
+            loggedInUser.lastLogin ||
+            new Date().toLocaleString("sl-SI", {
+              dateStyle: "long",
+              timeStyle: "short",
+            });
+
+          lastLoginElement.textContent = `Vaša zadnja prijava je bila ${lastLogin}`;
+        }
+      });
+    </script>
+    <script type="module">
+      import { slovenskaMesta } from "/front-end/assets/js/dummyData/cities.js";
+
+      const CITIES_PER_PAGE = 5;
+      let currentCityPage = 1;
+
+      function sortCitiesWithLjubljanaFirst(cities) {
+        const ljubljana = cities.filter((c) => c.toLowerCase() === "ljubljana");
+        const rest = cities
+          .filter((c) => c.toLowerCase() !== "ljubljana")
+          .sort((a, b) => a.localeCompare(b));
+        return [...ljubljana, ...rest];
+      }
+
+      function paginateCities(cities, perPage = CITIES_PER_PAGE) {
+        const pages = [];
+        for (let i = 0; i < cities.length; i += perPage) {
+          pages.push(cities.slice(i, i + perPage));
+        }
+        return pages;
+      }
+
+      function renderCityListPage(pageNumber, paginatedCities) {
+        const container = document.getElementById("citySidebar");
+        if (!container) return;
+
+        // Počisti obstoječe <li> elemente
+        const lis = container.querySelectorAll("li");
+        lis.forEach((li, index) => {
+          if (index > 0) container.removeChild(li);
+        });
+
+        const cities = paginatedCities[pageNumber - 1] || [];
+
+        cities.forEach((city) => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+        <a class="tooltip-tip ajax-load" href="#" title="${city}">
+          <i class="icon-map"></i>
+          <span>${city}</span>
+        </a>`;
+          container.appendChild(li);
+        });
+      }
+
+      // Glavna funkcija
+      const sortedCities = sortCitiesWithLjubljanaFirst(slovenskaMesta);
+      const paginatedCities = paginateCities(sortedCities);
+      renderCityListPage(currentCityPage, paginatedCities);
+    </script>
+    <script type="module">
+      import { usersData } from "/front-end/assets/js/dummyData/usersData.js";
+
+      const container = document.getElementById("nt-title");
+      if (container) {
+        container.innerHTML = ""; // Clear existing <li> elements
+
+        usersData.forEach((user) => {
+          const li = document.createElement("li");
+          li.textContent = user.description;
+          container.appendChild(li);
+        });
+      }
+    </script>
+    <script type="module">
+      import { usersData } from "/front-end/assets/js/dummyData/usersData.js";
+
+      // Funkcija za ustvarjanje in dodajanje vrstic v tabelo
+      function populateTable() {
+        const tableBody = document.querySelector("#site table tbody");
+
+        usersData.forEach((user) => {
+          const row = document.createElement("tr");
+
+          const cell1 = document.createElement("td");
+          cell1.classList.add("armada-devider");
+
+          const armadaDiv = document.createElement("div");
+          armadaDiv.classList.add("armada");
+
+          const userSpan = document.createElement("span");
+          userSpan.style.background = "#65c3df";
+          userSpan.innerHTML = `<span class="fa fa-user"></span>&nbsp;&nbsp;User`;
+
+          const timeParagraph = document.createElement("p");
+          timeParagraph.innerHTML = `<span class="entypo-gauge"></span>&nbsp;${user.timeAgo} <i>ago</i>`;
+
+          armadaDiv.appendChild(userSpan);
+          armadaDiv.appendChild(timeParagraph);
+          cell1.appendChild(armadaDiv);
+          row.appendChild(cell1);
+
+          const cell2 = document.createElement("td");
+          cell2.classList.add("driver-devider");
+
+          const img = document.createElement("img");
+          img.classList.add("armada-pic", "img-circle");
+          img.src = user.userImage;
+          img.alt = "";
+
+          const userName = document.createElement("h3");
+          userName.textContent = user.name;
+
+          cell2.appendChild(img);
+          cell2.appendChild(userName);
+          row.appendChild(cell2);
+
+          const cell3 = document.createElement("td");
+          const description = document.createElement("p");
+          description.textContent = user.description;
+          cell3.appendChild(description);
+          row.appendChild(cell3);
+
+          tableBody.appendChild(row);
+        });
+      }
+
+      // Zaženi, ko je DOM pripravljen
+      document.addEventListener("DOMContentLoaded", populateTable);
+    </script>
+    <script type="module">
+      import { usersData } from "/front-end/assets/js/dummyData/usersData.js";
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const latestFive = usersData.slice(0, 5);
+        const dropdown = document.getElementById("messageDropdown");
+
+        dropdown.innerHTML = "";
+
+        latestFive.forEach((user, index) => {
+          dropdown.innerHTML += `
+        <li style="padding: 10px; margin: 0; list-style: none;">
+          <a href="#">
+            <img alt="" class="img-msg img-circle" src="${user.userImage}" />
+            ${user.name} <b>${user.timeAgo}</b><br />
+            <small>${user.description}</small>
+          </a>
+        </li>
+        ${index < latestFive.length - 1 ? '<li class="divider"></li>' : ""}
+      `;
+        });
+
+        dropdown.innerHTML += `
+      <li>
+        <div style="width: 100%">See All Messages</div>
+      </li>
+    `;
+      });
+    </script>
+  </body>
+</html>
