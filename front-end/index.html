@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Profil - Parking Alert v 1.1</title>
+    <title>Parking Alert v 1.1</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -18,9 +18,9 @@
     <!-- Styles -->
 
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/profil.css" />
     <link rel="stylesheet" href="assets/css/loader-style.css" />
     <link rel="stylesheet" href="assets/css/bootstrap.css" />
-    <link rel="stylesheet" href="assets/css//profil.css" />
 
     <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 
@@ -34,28 +34,14 @@
     <link rel="stylesheet" href="/front-end//assets/css/toast.css" />
     <script src="/front-end/assets/js/toast/toast.js"></script>
 
-    <!-- Preusmeri na prijava če ni logiran -->
+    <!-- Preusmeri na prijava če ni logiran 
     <script>
       const user = JSON.parse(localStorage.getItem("loggedInUser"));
       if (!user) {
         window.location.replace("/front-end/prijava.html");
       }
     </script>
-
-    <!--User Data-->
-    <script src="/front-end/assets/js/dummyData/userLoginData.js"></script>
-
-    <!--Parkirišča Data-->
-    <script src="/front-end/assets/js/dummyData/parkingdata.js"></script>
-
-    <!-- ZMStudenti-->
-    <script src="/main-scripts/studenti.js"></script>
-
-    <!-- Skripta Funkcij-->
-    <script src="/front-end/assets/js/funtionsScript.js"></script>
-
-    <!-- GPS Script-->
-    <script src="/main-scripts/gps.js"></script>
+    -->
   </head>
 
   <body>
@@ -101,7 +87,53 @@
               role="menu"
               class="dropdown-menu dropdown-wrap"
             >
-              <!--JavaScript read data-->
+              <li style="padding: 10px; margin: 0; list-style: none">
+                <a href="#">
+                  <img
+                    alt=""
+                    class="img-msg img-circle"
+                    src="http://api.randomuser.me/portraits/thumb/men/1.jpg"
+                  />
+                  Janez Novak <b>5 min</b><br />
+                  <small
+                    >Redar na Ulici Sončnega Bulevarda, v bližini mestnega
+                    parka</small
+                  >
+                </a>
+              </li>
+              <li class="divider"></li>
+              <li style="padding: 10px; margin: 0; list-style: none">
+                <a href="#">
+                  <img
+                    alt=""
+                    class="img-msg img-circle"
+                    src="http://api.randomuser.me/portraits/thumb/men/2.jpg"
+                  />
+                  Alenka Kovač <b>15 min</b><br />
+                  <small
+                    >Redar na Ulici Javorja, v bližini stare knjižnice</small
+                  >
+                </a>
+              </li>
+              <li class="divider"></li>
+              <li style="padding: 10px; margin: 0; list-style: none">
+                <a href="#">
+                  <img
+                    alt=""
+                    class="img-msg img-circle"
+                    src="http://api.randomuser.me/portraits/thumb/men/3.jpg"
+                  />
+                  Bojan Simič <b>1h</b><br />
+                  <small
+                    >Redar na Ulici Hrasta, v bližini mestnega nakupovalnega
+                    centra</small
+                  >
+                </a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <div style="width: 100%">See All Messages</div>
+              </li>
             </ul>
           </li>
           <li>
@@ -136,15 +168,25 @@
             <li class="meridiem"></li>
           </ul>
           <ul id="nt-title">
-            <!-- Redarjevi opisi bodo tu vneseni dinamično -->
+            <li>Redar na Ulici Sončnega Bulevarda, v bližini mestnega parka</li>
+            <li>Redar na Ulici Javorja, v bližini stare knjižnice</li>
+            <li>
+              Redar na Ulici Hrasta, v bližini mestnega nakupovalnega centra
+            </li>
+            <li>Redar na Ulici Borovcev, v bližini trgovine na vogalu</li>
+            <li>Redar na Ulici Breze, v bližini univerze</li>
           </ul>
         </div>
 
         <ul style="margin-right: 0" class="nav navbar-nav navbar-right">
           <li>
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-              <img id="user-image" alt="" class="admin-pic img-circle" />Živjo!
-              <span id="studentFullNameTwo">Uporabnik</span>
+              <img
+                id="user-image-two"
+                alt=""
+                class="admin-pic img-circle"
+              />Živjo!
+              <span id="user-name-two">Uporabnik</span>
               <b class="caret"></b>
             </a>
             <ul
@@ -257,8 +299,26 @@
                   <i class="entypo-cog pull-right config-wrap"></i>
                 </a>
               </li>
-              <!-- Vsa dinamična mesta bodo vstavljena pod to vrstico -->
+              <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Ljubljana">
+                  <i class="icon-map"></i>
+                  <span>Ljubljana</span>
+                </a>
+              </li>
+              <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Maribor">
+                  <i class="icon-map"></i>
+                  <span>Maribor</span>
+                </a>
+              </li>
+              <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Kranj">
+                  <i class="icon-map"></i>
+                  <span>Kranj</span>
+                </a>
+              </li>
             </ul>
+
             <ul class="topnav menu-left-nest">
               <li>
                 <a
@@ -323,8 +383,8 @@
           <div id="paper-top">
             <div class="col-sm-3">
               <h2 class="tittle-content-header">
-                <i class="icon-user"></i>
-                <span>Profil </span>
+                <i class="icon-window"></i>
+                <span>Nadzorna plošča </span>
               </h2>
             </div>
 
@@ -337,9 +397,9 @@
                   </button>
                   <span class="tittle-alert entypo-info-circled"></span>
                   Dobrodošli nazaj,&nbsp;
-                  <strong id="studentFullNameThree">Uporabnik!</strong
-                  >&nbsp;&nbsp;<span id="last-location" class="last-location"
-                    >Vaša trenutna lokacija je:</span
+                  <strong id="user-name-strong">Uporabnik!</strong
+                  >&nbsp;&nbsp;<span id="last-login-time"
+                    >Vaša zadnja prijava je bila včeraj, 16:54 PM</span
                   >
                 </div>
               </div>
@@ -382,7 +442,7 @@
         </div>
         <!--/ NASLOV -->
 
-        <!-- ZAČETEK BREADCRUMB -->
+        <!-- BREADCRUMB -->
         <ul id="breadcrumb">
           <li>
             <span class="entypo-home"></span>
@@ -394,10 +454,10 @@
           <li><i class="fa fa-lg fa-angle-right"></i></li>
           <li>
             <a
-              href="/front-end/profil.html"
+              href="/front-end/index.html"
               style="font-weight: bold"
-              title="Profil"
-              >Profil</a
+              title="Nadzorna plošča"
+              >Nadzorna plošča</a
             >
           </li>
           <li class="pull-right">
@@ -411,131 +471,62 @@
             </div>
           </li>
         </ul>
+
         <!-- KONEC BREADCRUMBA -->
+        <div class="profileHeadingContainer">
+          <div class="button-group-div">
+            <button
+              class="btn btn-success danger-profile"
+              onclick="openToggleGPS()"
+            >
+              GPS
+            </button>
+            <button
+              class="btn btn-success danger-profile"
+              onclick="izberiLokacijoModal()"
+            >
+              Izberi lokacijo
+            </button>
+            <button
+              id="prijaviRedarButton"
+              class="btn btn-primary danger-profile"
+              onclick="openPrijaviRedarModal()"
+            >
+              Prijavi redarja
+            </button>
+          </div>
+        </div>
 
-        <!--  UPRAVITELJ NAPRAV -->
-        <div class="content-wrap">
-          <div class="profileHeadingContainer">
-            <div class="button-group-div">
-              <button
-                id="prijaviRedarButton"
-                class="btn btn-primary danger-profile"
-                onclick="openPrijaviRedarModal()"
-              >
-                Prijavi redarja
-              </button>
-              <button
-                class="btn btn-danger danger-profile"
-                onclick="openDeleteModal()"
-              >
-                Izbriši profil
-              </button>
+        <div id="paper-middle">
+          <div
+            style="
+              max-width: 100%;
+              list-style: none;
+              transition: none;
+              overflow: hidden;
+              width: 100%;
+              height: 530px;
+            "
+          >
+            <div
+              id="embed-ded-map-canvas"
+              style="height: 100%; width: 100%; max-width: 100%"
+            >
+              <div id="leafletMap" style="height: 100%; width: 100%"></div>
             </div>
           </div>
+        </div>
+
+        <!--  / UPRAVITELJ NAPRAV -->
+
+        <div class="content-wrap" style="margin-top: 120px">
           <div class="row rowTable">
-            <div class="col-sm-12 profileSectionContainer">
-              <!-- Profile Image -->
-              <div class="imageContainer">
-                <div class="profile-image">
-                  <img id="studentImage" alt="Student Image" />
-                </div>
-                <div class="profile-image-edit">
-                  <button class="btnProfile btn-primary" type="button">
-                    Spremeni sliko
-                  </button>
-                </div>
-              </div>
-
-              <!-- Podrobnosti profila -->
-              <div class="profile-details">
-                <h2 id="studentFullName" class="user-name">Uporabnik</h2>
-
-                <!-- Input za ime -->
-                <div class="user-info">
-                  <label for="studentName">Ime:</label>
-                  <input type="text" id="studentName" value="" readonly />
-                  <span
-                    class="edit-icon"
-                    onclick="editField('studentName', this)"
-                  >
-                    <i class="fa fa-edit"></i>
-                  </span>
-                </div>
-
-                <!-- Input za priimek -->
-                <div class="user-info">
-                  <label for="studentSurname">Priimek:</label>
-                  <input type="text" id="studentSurname" value="" readonly />
-                  <span
-                    class="edit-icon"
-                    onclick="editField('studentSurname', this)"
-                  >
-                    <i class="fa fa-edit"></i>
-                  </span>
-                </div>
-
-                <!-- Input za email -->
-                <div class="user-info">
-                  <label for="studentEmail">Email:</label>
-                  <input type="email" id="studentEmail" value="" readonly />
-                  <span
-                    class="edit-icon"
-                    onclick="editField('studentEmail', this)"
-                  >
-                    <i class="fa fa-edit"></i>
-                  </span>
-                </div>
-
-                <!-- Input za lokacijo -->
-                <div class="user-info">
-                  <label for="studentLocation">Lokacija:</label>
-                  <input type="text" id="studentLocation" value="" readonly />
-                  <span
-                    class="edit-icon"
-                    onclick="editField('studentLocation', this)"
-                  >
-                    <i class="fa fa-edit"></i>
-                  </span>
-                </div>
-
-                <!-- Input za telefon -->
-                <div class="user-info">
-                  <label for="studentPhone">Telefon:</label>
-                  <input type="tel" id="studentPhone" value="" readonly />
-                  <span
-                    class="edit-icon"
-                    onclick="editField('studentPhone', this)"
-                  >
-                    <i class="fa fa-edit"></i>
-                  </span>
-                </div>
-                <!-- Save Button Container -->
-                <div class="save-button-container">
-                  <button
-                    id="gpsModalBtn"
-                    class="btn btn-primary danger-profile"
-                    type="button"
-                    onclick="openToggleGPS()"
-                  >
-                    GPS
-                  </button>
-                  <button
-                    class="btn btn-success danger-profile"
-                    onclick="saveProfileChanges()"
-                  >
-                    Shrani podatke
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row" style="margin-top: 20px">
             <div class="col-sm-12" style="margin-top: 20px">
               <div id="siteClose" class="nest">
                 <div class="title-alt">
                   <h6>
                     <span class="fontawesome-globe"></span>&nbsp;Zadnja
-                    dejavnost uporabnika
+                    obvestila
                   </h6>
                 </div>
                 <div id="site" class="body-nest" style="min-height: 296px">
@@ -550,25 +541,87 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td>
-                            <span class="entypo-user"></span>&nbsp;Janez Novak
+                          <td class="armada-devider">
+                            <div class="armada">
+                              <span style="background: #65c3df"
+                                ><span class="fa fa-user"></span
+                                >&nbsp;&nbsp;User</span
+                              >
+                              <p>
+                                <span class="entypo-gauge"></span>&nbsp;5 min
+                                <i>ago</i>
+                              </p>
+                            </div>
                           </td>
-                          <td>Parkirišče FRI</td>
-                          <td>Ulica 1</td>
+                          <td class="driver-devider">
+                            <img
+                              class="armada-pic img-circle"
+                              src="http://api.randomuser.me/portraits/thumb/men/1.jpg"
+                              alt=""
+                            />
+                            <h3>Janez Novak</h3>
+                          </td>
+                          <td>
+                            <p>
+                              Redar na Ulici Sončnega Bulevarda, v bližini
+                              mestnega parka
+                            </p>
+                          </td>
                         </tr>
                         <tr>
-                          <td>
-                            <span class="entypo-user"></span>&nbsp; Janez Novak
+                          <td class="armada-devider">
+                            <div class="armada">
+                              <span style="background: #65c3df"
+                                ><span class="fa fa-user"></span
+                                >&nbsp;&nbsp;User</span
+                              >
+                              <p>
+                                <span class="entypo-gauge"></span>&nbsp;15 min
+                                <i>ago</i>
+                              </p>
+                            </div>
                           </td>
-                          <td>Parkirišče Bežigrad</td>
-                          <td>Ulica 2</td>
+                          <td class="driver-devider">
+                            <img
+                              class="armada-pic img-circle"
+                              src="http://api.randomuser.me/portraits/thumb/men/2.jpg"
+                              alt=""
+                            />
+                            <h3>Alenka Kovač</h3>
+                          </td>
+                          <td>
+                            <p>
+                              Redar na Ulici Javorja, v bližini stare knjižnice
+                            </p>
+                          </td>
                         </tr>
                         <tr>
-                          <td>
-                            <span class="entypo-user"></span>&nbsp;Janez Novak
+                          <td class="armada-devider">
+                            <div class="armada">
+                              <span style="background: #65c3df"
+                                ><span class="fa fa-user"></span
+                                >&nbsp;&nbsp;User</span
+                              >
+                              <p>
+                                <span class="entypo-gauge"></span>&nbsp;1h
+                                <i>ago</i>
+                              </p>
+                            </div>
                           </td>
-                          <td>Parkirišče Dolenjska cesta</td>
-                          <td>Ulica 3</td>
+                          <td class="driver-devider">
+                            <img
+                              class="armada-pic img-circle"
+                              src="http://api.randomuser.me/portraits/thumb/men/3.jpg"
+                              alt=""
+                            />
+                            <h3>Bojan Simič</h3>
+                          </td>
+                          <td>
+                            <p>
+                              Redar na Ulici Hrasta, v bližini mestnega
+                              nakupovalnega centra
+                            </p>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -578,14 +631,14 @@
             </div>
           </div>
         </div>
+        <div id="toast-container"></div>
+        <!-- Div za prijavi redar modal -->
+        <div id="prijaviRedarModalContainer"></div>
+        <!-- Div za GPS -->
+        <div id="gpsModal"></div>
+        <!-- Div za Izberi lokacijo -->
+        <div id="izberiParkirisceModal"></div>
       </div>
-      <div id="toast-container"></div>
-      <!-- Modalno okno za brisanje računa -->
-      <div id="deleteModalContainer"></div>
-      <!-- Div za prijavi redar modal -->
-      <div id="prijaviRedarModalContainer"></div>
-      <!-- Div za GPS -->
-      <div id="gpsModal"></div>
       <!-- Footer -->
       <footer>
         <div class="footer-content">
@@ -598,15 +651,7 @@
     <!--  Posodobi datum -->
     <script src="/front-end/assets/js/countdown/updateDate.js"></script>
 
-    <!--  Dummy podatki o parkirišč -->
-    <script type="module" src="assets/js/dummyData/parkingdata.js"></script>
-
-    <!--  Dummy podatki o uporabnikih za notif -->
-    <script src="/front-end/assets/js/dummyData/usersData.js"></script>
-
-    <!-- KONEC VSEBINE DESNEGA DRSNIKA-->
-
-    <!-- GLAVNI EFFEKTI -->
+    <!-- GLAVNI EFFECT -->
     <script type="text/javascript" src="assets/js/preloader.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.js"></script>
     <script type="text/javascript" src="assets/js/load.js"></script>
@@ -621,134 +666,11 @@
       type="text/javascript"
       src="/front-end/assets/js/countdown/countdown.js"
     ></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
-        if (loggedInUser) {
-          // Posodobi ime uporabnika
-          const nameElement = document.getElementById("studentFullNameTwo");
-          nameElement.textContent = `${loggedInUser.ime} ${loggedInUser.priimek}`;
-
-          // Posodobi sliko uporabnika
-          const imageElement = document.getElementById("user-image");
-          imageElement.src = loggedInUser.image || "/default-image.jpg";
-        }
-      });
-    </script>
-    <script type="module">
-      import { usersData } from "/front-end/assets/js/dummyData/usersData.js";
-
-      const container = document.getElementById("nt-title");
-      if (container) {
-        container.innerHTML = "";
-
-        usersData.forEach((user) => {
-          const li = document.createElement("li");
-          li.textContent = user.description;
-          container.appendChild(li);
-        });
-      }
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-
-        if (loggedInUser) {
-          // Posodobi ime uporabnika
-          const nameElement = document.getElementById("studentFullNameThree");
-          nameElement.textContent = `${loggedInUser.ime}!`;
-
-          // Posodobi zadnjo prijavo
-          const lastLoginElement = document.getElementById("last-login-time");
-
-          const lastLogin =
-            loggedInUser.lastLogin ||
-            new Date().toLocaleString("sl-SI", {
-              dateStyle: "long",
-              timeStyle: "short",
-            });
-
-          lastLoginElement.textContent = `Vaša zadnja prijava je bila ${lastLogin}.`;
-        }
-      });
-    </script>
-    <script type="module">
-      import { slovenskaMesta } from "/front-end/assets/js/dummyData/cities.js";
-
-      const CITIES_PER_PAGE = 5;
-      let currentCityPage = 1;
-
-      function sortCitiesWithLjubljanaFirst(cities) {
-        const ljubljana = cities.filter((c) => c.toLowerCase() === "ljubljana");
-        const rest = cities
-          .filter((c) => c.toLowerCase() !== "ljubljana")
-          .sort((a, b) => a.localeCompare(b));
-        return [...ljubljana, ...rest];
-      }
-
-      function paginateCities(cities, perPage = CITIES_PER_PAGE) {
-        const pages = [];
-        for (let i = 0; i < cities.length; i += perPage) {
-          pages.push(cities.slice(i, i + perPage));
-        }
-        return pages;
-      }
-
-      function renderCityListPage(pageNumber, paginatedCities) {
-        const container = document.getElementById("citySidebar");
-        if (!container) return;
-
-        const lis = container.querySelectorAll("li");
-        lis.forEach((li, index) => {
-          if (index > 0) container.removeChild(li);
-        });
-
-        const cities = paginatedCities[pageNumber - 1] || [];
-
-        cities.forEach((city) => {
-          const li = document.createElement("li");
-          li.innerHTML = `
-        <a class="tooltip-tip ajax-load" href="#" title="${city}">
-          <i class="icon-map"></i>
-          <span>${city}</span>
-        </a>`;
-          container.appendChild(li);
-        });
-      }
-
-      const sortedCities = sortCitiesWithLjubljanaFirst(slovenskaMesta);
-      const paginatedCities = paginateCities(sortedCities);
-      renderCityListPage(currentCityPage, paginatedCities);
-    </script>
-    <script type="module">
-      import { usersData } from "/front-end/assets/js/dummyData/usersData.js";
-
-      document.addEventListener("DOMContentLoaded", function () {
-        const latestFive = usersData.slice(0, 5);
-        const dropdown = document.getElementById("messageDropdown");
-
-        dropdown.innerHTML = "";
-
-        latestFive.forEach((user, index) => {
-          dropdown.innerHTML += `
-        <li style="padding: 10px; margin: 0; list-style: none;">
-          <a href="#">
-            <img alt="" class="img-msg img-circle" src="${user.userImage}" />
-            ${user.name} <b>${user.timeAgo}</b><br />
-            <small>${user.description}</small>
-          </a>
-        </li>
-        ${index < latestFive.length - 1 ? '<li class="divider"></li>' : ""}
-      `;
-        });
-
-        dropdown.innerHTML += `
-      <li>
-        <div style="width: 100%">See All Messages</div>
-      </li>
-    `;
-      });
-    </script>
+    <!-- LEAFLET MAP -->
+    <script
+      type="module"
+      src="/front-end/assets/js/leafletMap/leafletMap.js"
+    ></script>
   </body>
 </html>

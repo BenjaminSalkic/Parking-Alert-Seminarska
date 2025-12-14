@@ -1,5 +1,3 @@
-import { parkirnaMesta } from "../dummyData/parkingdata.js";
-
 var map = L.map("leafletMap").setView([46.056946, 14.505751], 13);
 
 // Osnovni sloj zemljevida
@@ -25,7 +23,7 @@ const greenIcon = new L.Icon({
 });
 
 // Prikaz vseh parkirišč
-parkirnaMesta.forEach((parkirisce) => {
+(window.parkirnaMesta || []).forEach((parkirisce) => {
   L.marker([parkirisce.latitude, parkirisce.longitude])
     .addTo(map)
     .bindPopup(parkirisce.ime);

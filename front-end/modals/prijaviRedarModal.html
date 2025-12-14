@@ -63,7 +63,6 @@
 </style>
 
 <script src="/front-end/assets/js/toast/toast.js"></script>
-<script src="/main-scripts/studenti.js"></script>
 <!-- Skripta Funkcij-->
 <script src="/front-end/assets/js/funtionsScript.js"></script>
 <script>
@@ -74,39 +73,4 @@
   function closeModal() {
     document.getElementById("prijaviRedarModal").style.display = "none";
   }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    document
-      .getElementById("addButtonRedar")
-      .addEventListener("click", function (event) {
-        event.preventDefault();
-
-        const lokacija = document.getElementById("lokacija").value;
-        const heading = document.getElementById("heading").value;
-        const opis = document.getElementById("opis").value;
-
-        if (!lokacija || !heading || !opis) {
-          alert("Prosimo, izpolnite vsa polja.");
-          return;
-        }
-
-        const newRow = document.createElement("tr");
-        newRow.innerHTML = `
-          <td><span class="entypo-user"></span>&nbsp;Uporabnik</td>
-          <td>${lokacija}</td>
-          <td>${heading}</td>
-        `;
-
-        const tableBody = document.querySelector("#site table tbody");
-        if (tableBody) {
-          tableBody.prepend(newRow);
-        } else {
-          console.error("Tabela ni bila najdena!");
-        }
-
-        document.getElementById("prijaviRedarForm").reset();
-        closeModal();
-        alert("Prijava uspešno dodana.");
-      });
-  });
 </script>
